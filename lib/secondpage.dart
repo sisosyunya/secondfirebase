@@ -51,6 +51,13 @@ class _SecondPage extends State<SecondPage> {
               }).toList(), 
             ),
             ElevatedButton(
+              child:Text('ドキュメント更新'),
+              onPressed: ()async{
+                // ドキュメント更新
+                await FirebaseFirestore.instance.collection('users').doc('id_abc').update({'name':'鈴木','age':50});
+              },
+              ),
+            ElevatedButton(
               onPressed: (){
                 Navigator.push(
                   context,
