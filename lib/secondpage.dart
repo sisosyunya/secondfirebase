@@ -4,6 +4,8 @@ import 'package:second_firebase/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:second_firebase/thirdpage.dart';
+
 
 // これでstateを扱うことができる
 class SecondPage extends StatefulWidget {
@@ -61,7 +63,7 @@ class _SecondPage extends State<SecondPage> {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                  MaterialPageRoute(builder: (context) => ThirdPage()),
                 );
               },
               child:const Text('次の画面へ'),
