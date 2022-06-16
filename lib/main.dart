@@ -4,6 +4,7 @@ import 'firebase/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Secondpage.dart';
 void main() async {
+  // firebaseのインスタンス化（初期化）
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
