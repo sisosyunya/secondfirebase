@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'firebase/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'Secondpage.dart';
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
@@ -85,11 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                       final User user = result.user!;
                       setState(() {
-                        infoText = "ログインしました${user.email}";
+                        infoText = "登録完了しました${user.email}";
                       });
                     }catch(e){
                       setState(() {
-                        infoText = "ログインに失敗しました${e.toString()}";
+                        infoText = "登録できませんでした${e.toString()}";
                       });
                     }
                   },
@@ -104,7 +105,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SecondPage()),
+          );
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
