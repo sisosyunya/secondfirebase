@@ -68,6 +68,15 @@ class _SecondPage extends State<SecondPage> {
               },
               child:const Text('次の画面へ'),
             ),
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ThirdPage()),
+                );
+              },
+              child:const Text('FCMファイアベースクラウドメッセージ'),
+            ),
           ],
         ),
       ),
