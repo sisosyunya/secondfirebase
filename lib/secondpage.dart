@@ -4,6 +4,7 @@ import 'package:second_firebase/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:second_firebase/messaging.dart';
 import 'package:second_firebase/thirdpage.dart';
 
 
@@ -72,7 +73,7 @@ class _SecondPage extends State<SecondPage> {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ThirdPage()),
+                  MaterialPageRoute(builder: (context) => Message()),
                 );
               },
               child:const Text('FCMファイアベースクラウドメッセージ'),
