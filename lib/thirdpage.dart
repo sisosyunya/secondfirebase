@@ -1,14 +1,16 @@
 
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 // /画像選択パッケージ
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-// import 'dart:convert';
+import 'dart:convert';
 // import 'package:second_firebase/main.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -26,20 +28,23 @@ class _ThirdPage extends State<ThirdPage> {
 
 // Future型は非同期処理を定義するときにマスト
   Future<void> _download()async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: 
+    "testing@test.com", password: 'ttteeest');
     // ファイルのダウンロード(テキストファイルを置いとくこともできる)
     FirebaseStorage storage = FirebaseStorage.instance;
-    Reference textRef = storage.ref().child("DL").child("text.txt");
+    Reference textRef = storage.ref().child("Dounload");
     //Reference ref = storage.ref("DL/hello.txt"); // refで一度に書いてもOK
     var data = await textRef.getData(); 
 
     // 画像のダウンロード
-    Reference imageRef = storage.ref().child("Dounload").child("img2.jpg");
+    Reference imageRef = storage.ref().child("Dounload");
+    // Reference imageRef = storage.ref().child("Dounload");
     String imageUrl = await imageRef.getDownloadURL();
 
     // 画面に反映
     setState((){
       _img = Image.network(imageUrl);
-      // _text = Text(ascii.decode(data!));
+      _text = Text(ascii.decode(data!));
     });
 
     // ディレクトリで端末のファイルを取得
