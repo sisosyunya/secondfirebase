@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'Secondpage.dart';
 void main() async {
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 class MyHomePage extends StatefulWidget {
   // const MyHomePage({Key? key, required this.title}) : super(key: key);
   // final String title;
@@ -43,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String newEmail = "";
   String newPassword = "";
   String infoText = "";
+  
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +106,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height:8),
                 Text(infoText),
+                const SizedBox(height:8),
+                ElevatedButton(
+                  onPressed: () async {
+                    try{
+                      final FirebaseAuth auth = FirebaseAuth.instance;
+                      Future<void>signUp(BuildContext context)async{
+                        final GoogleSignIn googleSignIn =GoogleSignIn();
+                        final GoogleSignInAccount? googleSignInAccount =await googleSignIn.signIn();
+                        if (googleSignInAccount!=null){
+                          final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+                               final AuthCredential authCredential = GoogleAuthProvider.credential(
+                                  idToken: googleSignInAuthentication.idToken,
+                                  accessToken: googleSignInAuthentication.accessToken);
 
+                          UserCredential result = await auth.signInWithCredential(authCredential);
+                          User user = result.user!;
+                          if (result!=null){
+                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Secondpage()));
+                            print('aaa');
+                          }
+                        }
+                      }
+                    }catch(e){
+                      print(e);
+                    }
+                  },
+                  child:Text("Googleアカウントで登録"),
+                ),
               ],
             ),
           ),

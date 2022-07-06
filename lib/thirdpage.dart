@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,15 +20,16 @@ class ThirdPage extends StatefulWidget {
   @override
   _ThirdPage createState() => _ThirdPage();
 }
+// staticは値が変わることなく使える
 
 class _ThirdPage extends State<ThirdPage> {
   Image? _img;
   Text? _text;
 
 // Future型は非同期処理を定義するときにマスト
-  Future<void> _download()async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: 
-    "testing@test.com", password: 'ttteeest');
+  Future<void> _download() async {
+     await FirebaseAuth.instance.signInWithEmailAndPassword(email: 
+    "tesutodesuyo@gmail.com", password: 'tesutodesuyorosiku');
     // ファイルのダウンロード(テキストファイルを置いとくこともできる)
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference textRef = storage.ref().child("Dounload");
