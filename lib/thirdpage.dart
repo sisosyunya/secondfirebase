@@ -28,23 +28,26 @@ class _ThirdPage extends State<ThirdPage> {
 
 // Future型は非同期処理を定義するときにマスト
   Future<void> _download() async {
-     await FirebaseAuth.instance.signInWithEmailAndPassword(email: 
+    // 認証してるかどうかのチェックを入れる
+     await FirebaseAuth.instance.signInWithEmailAndPassword(email:
     "tesutodesuyo@gmail.com", password: 'tesutodesuyorosiku');
     // ファイルのダウンロード(テキストファイルを置いとくこともできる)
-    FirebaseStorage storage = FirebaseStorage.instance;
-    Reference textRef = storage.ref().child("Dounload");
+    final storageRef = FirebaseStorage.instance.ref();
+    // Reference textRef = storageRef.child("Dounload");
     //Reference ref = storage.ref("DL/hello.txt"); // refで一度に書いてもOK
-    var data = await textRef.getData(); 
+    // var data = await textRef.getData(); 
 
     // 画像のダウンロード
-    Reference imageRef = storage.ref().child("Dounload");
+    print('yuyuyu');
+    final imageRef = storageRef.child("Dounload/img2.jpg");
     // Reference imageRef = storage.ref().child("Dounload");
     String imageUrl = await imageRef.getDownloadURL();
+    print(imageUrl);
 
     // 画面に反映
     setState((){
       _img = Image.network(imageUrl);
-      _text = Text(ascii.decode(data!));
+      // _text = Text(ascii.decode(data!));
     });
 
     // ディレクトリで端末のファイルを取得

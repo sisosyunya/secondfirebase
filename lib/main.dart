@@ -46,7 +46,24 @@ class _MyHomePageState extends State<MyHomePage> {
   String newEmail = "";
   String newPassword = "";
   String infoText = "";
-  
+
+  Future<void>signUp(BuildContext context)async{
+                        final FirebaseAuth auth = FirebaseAuth.instance;
+                        final GoogleSignIn googleSignIn =GoogleSignIn();
+                        final GoogleSignInAccount? googleSignInAccount =await googleSignIn.signIn();
+                        if (googleSignInAccount!=null){
+                          final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+                               final AuthCredential authCredential = GoogleAuthProvider.credential(
+                                  idToken: googleSignInAuthentication.idToken,
+                                  accessToken: googleSignInAuthentication.accessToken);
+                          UserCredential result = await auth.signInWithCredential(authCredential);
+                          User user = result.user!;
+                          if (result!=null){
+                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Secondpage()));
+                            print('aaa');
+                          }
+                        }
+                      }
 
   @override
   Widget build(BuildContext context) {
@@ -110,24 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () async {
                     try{
-                      final FirebaseAuth auth = FirebaseAuth.instance;
-                      Future<void>signUp(BuildContext context)async{
-                        final GoogleSignIn googleSignIn =GoogleSignIn();
-                        final GoogleSignInAccount? googleSignInAccount =await googleSignIn.signIn();
-                        if (googleSignInAccount!=null){
-                          final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-                               final AuthCredential authCredential = GoogleAuthProvider.credential(
-                                  idToken: googleSignInAuthentication.idToken,
-                                  accessToken: googleSignInAuthentication.accessToken);
-
-                          UserCredential result = await auth.signInWithCredential(authCredential);
-                          User user = result.user!;
-                          if (result!=null){
-                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Secondpage()));
-                            print('aaa');
-                          }
-                        }
-                      }
+                    print("Googleログイン"); 
+                    await signUp(context);
                     }catch(e){
                       print(e);
                     }
